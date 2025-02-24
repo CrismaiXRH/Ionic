@@ -35,3 +35,17 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.validators {
+    color: var(--ion-color-danger);
+    font-size: 13px;
+    text-align: center;
+}
+.submit {
+    margin-top: 40px;
+}

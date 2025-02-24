@@ -1,0 +1,23 @@
+.custom-input {
+    --border-radius: 5px;
+    --border-style: solid;
+    --border-width: 1px;
+    margin: 20px 0;
+
+    ion-label {
+        position: relative;
+        bottom: 2px;
+    }
+}
+
+.auth-form {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (min-width: 769px) {
+    .auth-form {
+        width: 500px;
+    }
+}
