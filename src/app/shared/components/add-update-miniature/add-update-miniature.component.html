@@ -1,0 +1,85 @@
+<app-header title="Agregar Miniatura" [isModal]="true"></app-header>
+<ion-content>
+  <form
+    [formGroup]="form"
+    class="ion-padding ion-text-center"
+    (ngSubmit)="submit()"
+  >
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+    <ion-icon
+      class="image-icon"
+      name="image-outline"
+      *ngIf="!form.value.image"
+    ></ion-icon>
+    <br />
+    <ion-button (click)="takeImage()" size="small" shape="round" mode="ios">
+      Tomar / Seleccionar
+    </ion-button>
+    <app-custom-input
+      autocomplete="name"
+      [control]="form.controls.name"
+      type="text"
+      label="Nombre"
+    ></app-custom-input>
+
+    <div
+      class="validators"
+      *ngIf="form.controls.name.errors && form.controls.name.touched"
+    >
+      <div *ngIf="form.controls.name.errors?.['required']">
+        Debe especificar un nombre
+      </div>
+      <div *ngIf="form.controls.name.errors?.['minlength']">
+        El nombre debe tener al menos 4 caracteres
+      </div>
+    </div>
+
+    <app-custom-input
+      [control]="form.controls.units"
+      type="number"
+      label="Unidades"
+    ></app-custom-input>
+
+    <div
+      class="validators"
+      *ngIf="form.controls.units.errors && form.controls.units.touched"
+    >
+      <div *ngIf="form.controls.units.errors?.['required']">
+        Debe especificar un número de unidades
+      </div>
+      <div *ngIf="form.controls.units.errors?.['min']">
+        Debe añadir al menos una unidad
+      </div>
+    </div>
+
+    <app-custom-input
+      [control]="form.controls.strength"
+      type="number"
+      label="Fuerza"
+    ></app-custom-input>
+
+    <div
+      class="validators"
+      *ngIf="form.controls.strength.errors && form.controls.strength.touched"
+    >
+      <div *ngIf="form.controls.strength.errors?.['required']">
+        Debe especificar un número de unidades
+      </div>
+      <div *ngIf="form.controls.strength.errors?.['min']">
+        La fuerza mínima es 0.
+      </div>
+    </div>
+
+    <ion-button
+      mode="ios"
+      class="ion-margin"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Agregar miniatura
+      <ion-icon slot="end" name="person-add-outline"></ion-icon>
+    </ion-button>
+  </form>
+</ion-content>

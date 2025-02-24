@@ -1,7 +1,17 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button
+        *ngIf="backButtonURL"
+        [defaultHref]="backButtonURL"
+      ></ion-back-button>
+      <ion-button *ngIf="isModal" (click)="dismissModal()">
+        <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      <strong>{{title}}</strong>
-      <div class="wmm">Viva Euskadi</div></ion-title>
+      <strong>{{ title }}</strong>
+      <div class="wmm">WarMace Manager</div></ion-title
+    >
   </ion-toolbar>
 </ion-header>
