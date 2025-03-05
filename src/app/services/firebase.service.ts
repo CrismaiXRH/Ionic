@@ -12,6 +12,7 @@ import {
   uploadString,
   ref,
   getDownloadURL,
+  deleteObject
 } from '@angular/fire/storage';
 import { User } from '../models/user.model';
 import {
@@ -20,8 +21,17 @@ import {
   doc,
   getDoc,
   addDoc,
+  updateDoc,
   collection,
+  collectionData,
+  query,
+  deleteDoc,
+  QueryConstraint,
+  where,
+  orderBy,
+  limit,
 } from '@angular/fire/firestore';
+import { QueryOptions } from './query-options.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -79,8 +89,47 @@ export class FirebaseService {
   setDocument(path: string, data: any) {
     return setDoc(doc(this.firestore, path), data);
   }
+
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(this.firestore, path), data);
+  }
+
+  deleteDocument(path: string) {
+    return deleteDoc(doc(this.firestore, path));
+  }
+
   addDocument(path: string, data: any) {
     return addDoc(collection(this.firestore, path), data);
+  }
+
+  // Implementa el método buildQueryConstraints
+  buildQueryConstraints(queryOptions?: QueryOptions): QueryConstraint[] {
+    const constraints: QueryConstraint[] = [];
+
+    if (queryOptions?.where) {
+      queryOptions.where.forEach(condition => {
+        constraints.push(where(condition.field, condition.operator, condition.value));
+      });
+    }
+
+    if (queryOptions?.orderBy) {
+      queryOptions.orderBy.forEach(order => {
+        constraints.push(orderBy(order.field, order.direction));
+      });
+    }
+
+    if (queryOptions?.limit) {
+      constraints.push(limit(queryOptions.limit));
+    }
+
+    return constraints;
+  }
+
+  // Modifica el método getCollectionData para usar buildQueryConstraints
+  getCollectionData(path: string, queryOptions?: QueryOptions) {
+    const ref = collection(this.firestore, path);
+    const constraints = this.buildQueryConstraints(queryOptions);
+    return collectionData(query(ref, ...constraints), { idField: 'id' });
   }
 
   async uploadImage(path: string, imageUrl: string) {
@@ -89,5 +138,13 @@ export class FirebaseService {
         return getDownloadURL(ref(this.storage, path));
       }
     );
+  }
+
+  async getFilePath(url: string) {
+    return ref(this.storage, url).fullPath;
+  }
+
+  async deleteFile(path: string) {
+    return deleteObject(ref(this.storage, path));
   }
 }

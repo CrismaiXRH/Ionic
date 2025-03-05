@@ -3,3 +3,45 @@
         --height: 680px;
     }
 }
+.miniature-item {
+    --padding-top: 20px;
+
+    ion-avatar {
+        width: 70px;
+        height: 80px;
+        --border-radius: 15px;
+    }
+
+    .name {
+        font-weight: 600;
+        padding-bottom: 5px;
+    }
+
+    .data {
+        font-size: 13px;
+
+        strong {
+            font-weight: 500;
+        }
+    }
+
+    .option-btn {
+        font-size: 27px;
+    }
+
+    ion-chip {
+        font-size: 14px;
+        border-radius: 10px;
+        margin-left: 0;
+    }
+}
+
+.empty {
+    text-align: center;
+    padding: 60px;
+    opacity: 30%;
+
+    ion-icon {
+        font-size: 100px;
+    }
+}

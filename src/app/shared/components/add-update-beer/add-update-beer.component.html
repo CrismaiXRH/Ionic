@@ -1,9 +1,9 @@
-<app-header title="Agregar Miniatura" [isModal]="true"></app-header>
+<app-header [title]="beer ? 'Actualizar Cerveza' : 'Agregar Cerveza'" [isModal]="true"></app-header>
 <ion-content>
   <form
     [formGroup]="form"
     class="ion-padding ion-text-center"
-    (ngSubmit)="submit()"
+    (ngSubmit)="beer ? updateBeer() : addBeer()"
   >
     <ion-avatar *ngIf="form.value.image">
       <img [src]="form.value.image" />
@@ -37,38 +37,38 @@
     </div>
 
     <app-custom-input
-      [control]="form.controls.units"
+      [control]="form.controls.volume"
       type="number"
-      label="Unidades"
+      label="Volumen"
     ></app-custom-input>
 
     <div
       class="validators"
-      *ngIf="form.controls.units.errors && form.controls.units.touched"
+      *ngIf="form.controls.volume.errors && form.controls.volume.touched"
     >
-      <div *ngIf="form.controls.units.errors?.['required']">
-        Debe especificar un número de unidades
+      <div *ngIf="form.controls.volume.errors?.['required']">
+        Debe especificar un volumen
       </div>
-      <div *ngIf="form.controls.units.errors?.['min']">
-        Debe añadir al menos una unidad
+      <div *ngIf="form.controls.volume.errors?.['min']">
+        El volumen debe ser al menos 1
       </div>
     </div>
 
     <app-custom-input
-      [control]="form.controls.strength"
+      [control]="form.controls.grades"
       type="number"
-      label="Fuerza"
+      label="Grados"
     ></app-custom-input>
 
     <div
       class="validators"
-      *ngIf="form.controls.strength.errors && form.controls.strength.touched"
+      *ngIf="form.controls.grades.errors && form.controls.grades.touched"
     >
-      <div *ngIf="form.controls.strength.errors?.['required']">
-        Debe especificar un número de unidades
+      <div *ngIf="form.controls.grades.errors?.['required']">
+        Debe especificar los grados
       </div>
-      <div *ngIf="form.controls.strength.errors?.['min']">
-        La fuerza mínima es 0.
+      <div *ngIf="form.controls.grades.errors?.['min']">
+        Los grados deben ser al menos 0
       </div>
     </div>
 
@@ -77,9 +77,8 @@
       class="ion-margin"
       type="submit"
       [disabled]="form.invalid"
-    >
-      Agregar miniatura
-      <ion-icon slot="end" name="person-add-outline"></ion-icon>
+    >{{beer ? 'Actualizar' : 'Agregar'}}
+      <ion-icon slot="end" [name]="beer ? 'create-outline' : 'person-add-outline'"></ion-icon>
     </ion-button>
   </form>
 </ion-content>
