@@ -52,7 +52,6 @@ export class FirebaseService {
   async updateUser(displayName: string) {
     const user = await this.auth.currentUser;
     if (user) {
-      // Actualiza el perfil del usuario
       await updateProfile(user, { displayName: displayName });
     }
   }
@@ -102,7 +101,6 @@ export class FirebaseService {
     return addDoc(collection(this.firestore, path), data);
   }
 
-  // Implementa el método buildQueryConstraints
   buildQueryConstraints(queryOptions?: QueryOptions): QueryConstraint[] {
     const constraints: QueryConstraint[] = [];
 
@@ -125,7 +123,6 @@ export class FirebaseService {
     return constraints;
   }
 
-  // Modifica el método getCollectionData para usar buildQueryConstraints
   getCollectionData(path: string, queryOptions?: QueryOptions) {
     const ref = collection(this.firestore, path);
     const constraints = this.buildQueryConstraints(queryOptions);

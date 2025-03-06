@@ -31,7 +31,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Beers } from 'src/app/models/beers.model';
-import { Haptics, ImpactStyle } from '@capacitor/haptics'; // Importamos Haptics
+import { Haptics, ImpactStyle } from '@capacitor/haptics'; 
 
 @Component({
   selector: 'app-add-update-beer',
@@ -53,7 +53,7 @@ export class AddUpdatebeerComponent implements OnInit {
   supabaseService = inject(SupabaseService);
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
-  haptics = Haptics; // Use Haptics directly
+  haptics = Haptics; 
   user = {} as User;
 
   form = new FormGroup({
@@ -108,7 +108,7 @@ export class AddUpdatebeerComponent implements OnInit {
       const imageUrl = await this.supabaseService.uploadImageSupabase(
         imagePath,
         imageDataUrl,
-        'image/jpeg' // Proporcionar el contentType
+        'image/jpeg' 
       );
       this.form.controls.image.setValue(imageUrl);
 
@@ -125,8 +125,7 @@ export class AddUpdatebeerComponent implements OnInit {
             icon: 'checkmark-circle-outline',
           });
 
-          // Vibrar al añadir la cerveza
-          this.haptics.impact({ style: ImpactStyle.Medium }); // Vibración media
+          this.haptics.impact({ style: ImpactStyle.Medium }); 
         })
         .catch((error) => {
           this.utilsService.presentToast({
@@ -149,9 +148,9 @@ export class AddUpdatebeerComponent implements OnInit {
       await loading.present();
   
       const path: string = `users/${this.user.uid}/beers`;
-      let imageUrl = this.beer?.image || ''; // Mantener la imagen actual por defecto
+      let imageUrl = this.beer?.image || ''; 
   
-      // Solo sube la imagen si ha cambiado y es un dataUrl
+    
       if (this.form.value.image !== this.beer?.image) {
         const imageDataUrl = this.form.value.image;
         
@@ -161,9 +160,8 @@ export class AddUpdatebeerComponent implements OnInit {
             imageUrl = await this.supabaseService.uploadImageSupabase(
               imagePath,
               imageDataUrl,
-              'image/jpeg' // Proporcionar el contentType
+              'image/jpeg' 
             );
-            // Eliminar la imagen antigua de Supabase
             if (this.beer?.image) {
               const oldFilePath = this.supabaseService.getFilePath(this.beer.image);
               if (oldFilePath) {
@@ -182,7 +180,7 @@ export class AddUpdatebeerComponent implements OnInit {
         }
       }
   
-      this.form.controls.image.setValue(imageUrl); // Mantener la imagen actual si no se cambia
+      this.form.controls.image.setValue(imageUrl); 
   
       if (this.beer && this.beer.id) {
         const updatePath = `${path}/${this.beer.id}`;

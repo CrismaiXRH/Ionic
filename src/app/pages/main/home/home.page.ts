@@ -179,7 +179,7 @@ export class HomePage implements OnInit {
 
   goToHome() {
     this.router.navigate(['/main/home']).then(() => {
-      this.ngOnInit(); // Recarga los datos de las cervezas
+      this.ngOnInit(); 
     });
   }
   
@@ -188,7 +188,6 @@ export class HomePage implements OnInit {
   }
 
   searchBeer() {
-    // Implementa la lógica para buscar cervezas por nombre
     const searchTerm = prompt('Ingrese el nombre de la cerveza a buscar:');
     if (searchTerm) {
       this.beers = this.beers.filter(beer => beer.name.toLowerCase().includes(searchTerm.toLowerCase()));

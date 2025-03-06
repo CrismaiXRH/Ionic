@@ -50,21 +50,18 @@ export class SensorsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.sensorService.startWatchingGPS();
     this.sensorService.startListeningToMotion();
-    // Suscribirse a los datos del acelerómetro
     this.accelerometerDataSubscription = this.sensorService
       .getAccelerometerData()
       .subscribe((data) => {
         this.accelerometerData = data;
       });
 
-    // Suscribirse a los datos de orientación
     this.orientationDataSubscription = this.sensorService
       .getOrientationData()
       .subscribe((data) => {
         this.orientationData = data;
       });
 
-    // Suscribirse a las coordenadas actuales
     this.coordinatesSubscription = this.sensorService
       .getCurrentCoordinates()
       .subscribe((data) => {
@@ -73,7 +70,6 @@ export class SensorsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Desuscribirse de todos los observables
     if (this.accelerometerDataSubscription) {
       this.accelerometerDataSubscription.unsubscribe();
     }
@@ -84,7 +80,6 @@ export class SensorsPage implements OnInit, OnDestroy {
       this.coordinatesSubscription.unsubscribe();
     }
 
-    // También podemos parar de escuchar eventos de motion si lo hemos iniciado
     this.sensorService.stopListeningToMotion();
     this.sensorService.stopWatchingGPS();
   }

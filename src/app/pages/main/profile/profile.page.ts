@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { addIcons } from 'ionicons';
 import { cameraOutline, personOutline, searchOutline, addOutline, homeOutline, logOutOutline } from 'ionicons/icons';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
-import { Router } from '@angular/router'; // Importar Router
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-profile',
@@ -22,12 +22,12 @@ export class ProfilePage implements OnInit {
   utilsService = inject(UtilsService);
   firebaseService = inject(FirebaseService);
   supabaseService = inject(SupabaseService);
-  router: Router; // Definir la variable del Router
-  changeDetectorRef: ChangeDetectorRef; // Definir la variable del ChangeDetectorRef
+  router: Router; 
+  changeDetectorRef: ChangeDetectorRef; 
 
   constructor(changeDetectorRef: ChangeDetectorRef, router: Router) {
-    this.changeDetectorRef = changeDetectorRef; // Inyectar el ChangeDetectorRef
-    this.router = router; // Inyectar el Router
+    this.changeDetectorRef = changeDetectorRef; 
+    this.router = router; 
     this.user = this.utilsService.getLocalStoredUser()!;
     addIcons({logOutOutline,cameraOutline,personOutline,homeOutline,searchOutline,addOutline});
   }
@@ -69,7 +69,7 @@ export class ProfilePage implements OnInit {
   
       this.utilsService.saveInLocalStorage("user", this.user);
       
-      // 🔄 Forzar actualización en la vista
+  
       this.changeDetectorRef.detectChanges();
   
       await this.utilsService.presentToast({

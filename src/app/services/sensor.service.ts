@@ -10,12 +10,10 @@ import { PluginListenerHandle } from '@capacitor/core';
 export class SensorService {
   constructor() {}
 
-  // Variables para los listeners
   accelerationHandler: PluginListenerHandle | null = null;
   orientationHandler: PluginListenerHandle | null = null;
   gpsWatcher: string | null = null;
 
-  // Crear BehaviorSubjects para cada dato que deseamos emitir
   private accelerometerDataSubject = new BehaviorSubject<{
     x: number;
     y: number;
@@ -28,7 +26,6 @@ export class SensorService {
   }>({ alpha: 0, beta: 0, gamma: 0 });
   private coordinatesSubject = new BehaviorSubject<Position | null>(null);
 
-  // Métodos para acceder a los datos como observables
   getAccelerometerData() {
     return this.accelerometerDataSubject.asObservable();
   }
@@ -41,10 +38,8 @@ export class SensorService {
     return this.coordinatesSubject.asObservable();
   }
 
-  // Iniciar la escucha de los datos de movimiento
   async startListeningToMotion() {
     this.accelerationHandler = await Motion.addListener('accel', (event) => {
-      // Actualizar el comportamiento de los datos del acelerómetro
       this.accelerometerDataSubject.next({
         x: event.acceleration.x,
         y: event.acceleration.y,
@@ -55,7 +50,6 @@ export class SensorService {
     this.orientationHandler = await Motion.addListener(
       'orientation',
       (event) => {
-        // Actualizar el comportamiento de los datos de orientación
         this.orientationDataSubject.next({
           alpha: event.alpha,
           beta: event.beta,
@@ -65,7 +59,6 @@ export class SensorService {
     );
   }
 
-  // Detener la escucha de los datos de movimiento
   async stopListeningToMotion() {
     if (this.accelerationHandler) {
       this.accelerationHandler.remove();
@@ -83,7 +76,6 @@ export class SensorService {
       beta: 0,
       gamma: 0,
     });
-    // Remover todos los listeners de Motion
     Motion.removeAllListeners();
   }
 
@@ -96,7 +88,7 @@ export class SensorService {
   async stopWatchingGPS() {
     if (this.gpsWatcher) {
       await Geolocation.clearWatch({ id: this.gpsWatcher });
-      this.coordinatesSubject.next(null); // Limpia la data
+      this.coordinatesSubject.next(null); 
       this.gpsWatcher = null;
     }
   }

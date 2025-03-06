@@ -42,11 +42,10 @@ export class SupabaseService {
     return urlInfo.data.publicUrl;
   }
 
-  // Convertir dataUrl a Blob
   private dataUrlToBlob(dataUrl: string): Blob {
     const arr = dataUrl.split(',');
-    const mime = arr[0].match(/:(.*?);/)![1]; // Extraer el tipo MIME (por ejemplo, "image/jpeg")
-    const bstr = atob(arr[1]); // Decodificar base64
+    const mime = arr[0].match(/:(.*?);/)![1]; 
+    const bstr = atob(arr[1]); 
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
 
@@ -61,7 +60,6 @@ export class SupabaseService {
     try {
       const url = new URL(publicUrl);
 
-      // Buscar el segmento `/storage/v1/object/public/`
       const publicPrefix = '/storage/v1/object/public/' + environment.supabaseConfig.bucket + '/';
       const startIndex = url.pathname.indexOf(publicPrefix);
 
@@ -71,7 +69,6 @@ export class SupabaseService {
         );
       }
 
-      // Obtener el resto de la ruta después del prefijo
       const filePath = url.pathname.substring(startIndex + publicPrefix.length);
 
       return filePath;
