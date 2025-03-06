@@ -1,47 +1,117 @@
-@media (min-width: 769px) {
-    .add-update-modal {
-        --height: 680px;
-    }
-}
-.miniature-item {
-    --padding-top: 20px;
-
-    ion-avatar {
-        width: 70px;
-        height: 80px;
-        --border-radius: 15px;
-    }
-
-    .name {
-        font-weight: 600;
-        padding-bottom: 5px;
-    }
-
-    .data {
-        font-size: 13px;
-
-        strong {
-            font-weight: 500;
-        }
-    }
-
-    .option-btn {
-        font-size: 27px;
-    }
-
-    ion-chip {
-        font-size: 14px;
-        border-radius: 10px;
-        margin-left: 0;
-    }
+:root {
+  --primary-color: #ffcc00;
+  --secondary-color: #ff9900;
+  --background-color: #121212;
+  --text-color: #fff;
 }
 
-.empty {
-    text-align: center;
-    padding: 60px;
-    opacity: 30%;
+.custom-background {
+  background: var(--background-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
 
-    ion-icon {
-        font-size: 100px;
-    }
+.stats-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stats-card {
+  width: 90%;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.beer-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.beer-card {
+  width: 80%; /* Hacer las tarjetas más anchas */
+  max-width: 350px; /* Aumentar el tamaño máximo */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px; /* Más espacio dentro de la tarjeta */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px; /* Esquinas más redondeadas */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+}
+
+.beer-image {
+  width: 120px; /* Imagen más grande */
+  height: 120px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px; /* Mantener esquinas redondeadas */
+}
+
+.beer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evitar distorsión */
+}
+
+h2 {
+  font-size: 1.8rem; /* Aumentar tamaño del nombre */
+  margin-top: 12px;
+}
+
+p {
+  font-size: 1.2rem; /* Aumentar tamaño de los datos */
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.button-group ion-button {
+  font-size: 0.9rem; /* Mantener los botones pequeños */
+  padding: 8px 12px; /* Ajustar tamaño de los botones */
+  height: 35px; /* Reducir altura */
+}
+
+.empty-state {
+  text-align: center;
+  opacity: 0.8;
+  margin-top: 32px;
+}
+
+.empty-state ion-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+ion-footer ion-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#contenido {
+  padding-top: 10%;
 }

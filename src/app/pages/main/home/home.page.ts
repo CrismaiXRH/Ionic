@@ -13,9 +13,9 @@ import {
   IonItem,
   IonAvatar,
   IonList,
-  IonChip, IonSkeletonText, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
+  IonChip, IonSkeletonText, IonRefresher, IonRefresherContent, IonCard, IonCardContent, IonHeader, IonToolbar, IonTitle, IonCardHeader, IonCardTitle, IonFooter, IonButtons } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
+import { add, createOutline, trashOutline, bodyOutline, beerOutline, logOutOutline, searchOutline, addOutline, homeOutline, personOutline } from 'ionicons/icons';
 import { Beers } from 'src/app/models/beers.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -23,13 +23,14 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdatebeerComponent } from 'src/app/shared/components/add-update-beer/add-update-beer.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonRefresherContent, IonRefresher, IonSkeletonText, 
+  imports: [IonButtons, IonFooter, IonCardTitle, IonCardHeader, IonTitle, IonToolbar, IonHeader, IonCardContent, IonCard, IonRefresherContent, IonRefresher, IonSkeletonText, 
     IonChip,
     IonList,
     IonAvatar,
@@ -38,6 +39,7 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
     IonItemOptions,
     IonItemOption,
     IonLabel,
+    IonButton,
     IonFabButton,
     IonIcon,
     IonFab,
@@ -49,14 +51,26 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
 export class HomePage implements OnInit {
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
+  supabaseService = inject(SupabaseService);
+  router = inject(Router);
   beers: Beers[] = [];
   loading: boolean = false;
-  supabaseService = inject(SupabaseService);
   constructor() {
-    addIcons({createOutline,trashOutline,bodyOutline,add});
+    addIcons({logOutOutline,beerOutline,searchOutline,addOutline,homeOutline,personOutline,createOutline,trashOutline,add,bodyOutline});
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getBeers();
+  }
+
+  logout() {
+    this.firebaseService.signOut().then(() => {
+      this.router.navigate(['/auth']).then(() => {
+        window.location.reload();
+      });
+    });
+  }
+
 
   getBeers() {
     const user: User = this.utilsService.getLocalStoredUser()!;
@@ -90,6 +104,11 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.getBeers();
+  }
+
+  getTotalPower() {
+    return this.beers.reduce((accumulator, beer) =>  
+      accumulator + Number(beer.volume), 0);
   }
 
   async deleteBeer(beer: Beers) {
@@ -156,5 +175,23 @@ export class HomePage implements OnInit {
         },
       ],
     });
+  }
+
+  goToHome() {
+    this.router.navigate(['/main/home']).then(() => {
+      this.ngOnInit(); // Recarga los datos de las cervezas
+    });
+  }
+  
+  goToProfile() {
+    this.router.navigate(['/main/profile']);
+  }
+
+  searchBeer() {
+    // Implementa la lógica para buscar cervezas por nombre
+    const searchTerm = prompt('Ingrese el nombre de la cerveza a buscar:');
+    if (searchTerm) {
+      this.beers = this.beers.filter(beer => beer.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
   }
 }

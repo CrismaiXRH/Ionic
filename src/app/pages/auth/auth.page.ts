@@ -107,7 +107,7 @@ export class AuthPage implements OnInit {
           icon: 'person-circle-outline',
         });
         this.form.reset();
-        this.utilsService.routerLink('/home');
+        this.utilsService.routerLink('/main/home');
       })
       .catch((error) => {
         this.utilsService.presentToast({

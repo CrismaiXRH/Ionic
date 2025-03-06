@@ -31,6 +31,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Beers } from 'src/app/models/beers.model';
+import { Haptics, ImpactStyle } from '@capacitor/haptics'; // Importamos Haptics
 
 @Component({
   selector: 'app-add-update-beer',
@@ -52,15 +53,15 @@ export class AddUpdatebeerComponent implements OnInit {
   supabaseService = inject(SupabaseService);
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
-
+  haptics = Haptics; // Use Haptics directly
   user = {} as User;
 
   form = new FormGroup({
     id: new FormControl(''),
     image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    volume: new FormControl('', [Validators.required, Validators.min(1)]),
-    grades: new FormControl('', [Validators.required, Validators.min(0)]),
+    volume: new FormControl('', [Validators.required, Validators.min(20)]),
+    grades: new FormControl('', [Validators.required, Validators.min(5)]),
   });
 
   @Input() beer: Partial<Beers> | null = null;
@@ -123,6 +124,9 @@ export class AddUpdatebeerComponent implements OnInit {
             position: 'middle',
             icon: 'checkmark-circle-outline',
           });
+
+          // Vibrar al añadir la cerveza
+          this.haptics.impact({ style: ImpactStyle.Medium }); // Vibración media
         })
         .catch((error) => {
           this.utilsService.presentToast({

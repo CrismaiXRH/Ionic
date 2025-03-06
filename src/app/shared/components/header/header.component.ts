@@ -8,6 +8,7 @@ import {
   IonBackButton,
   IonButton,
   IonIcon,
+  IonMenuButton
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { closeCircleOutline } from 'ionicons/icons';
@@ -27,12 +28,14 @@ import { UtilsService } from 'src/app/services/utils.service';
     IonToolbar,
     IonHeader,
     CommonModule,
+    IonMenuButton
   ],
 })
 export class HeaderComponent implements OnInit {
   @Input({ required: true }) title!: string;
   @Input() backButtonURL: string | null = null;
   @Input() isModal: boolean = false;
+  @Input() showMenuButton: boolean = false;
 
   utilsService = inject(UtilsService);
 

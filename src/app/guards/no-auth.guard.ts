@@ -10,7 +10,7 @@ export const noAuthGuard: CanActivateFn = async (route, state) => {
   const isAuthenticated = await firebaseService.isAuthenticated();
 
   if (isAuthenticated) {
-    return utilsService.urlTree('/home');
+    return utilsService.urlTree('/main/home');
   } else {
     return true;
   }

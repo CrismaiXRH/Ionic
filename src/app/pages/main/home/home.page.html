@@ -1,67 +1,59 @@
-<app-header title="Inicio"></app-header>
-<ion-content>
+<app-header title="Perfil" [showMenuButton]="true"></app-header>
 
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-<ion-content>
-  <ion-list *ngIf="!loading">
-    <ion-item-sliding
-      *ngFor="let beer of beers"
-      class="beer-item"
-    >
-      <ion-item>
-        <ion-avatar slot="start">
-          <img [src]="beer.image" />
-        </ion-avatar>
-        <ion-label>
-          <div class="name">{{beer.name}}</div>
-          <div class="data">
-            <strong>Volumen:</strong> {{beer.volume}} <br />
-            <strong>Grados:</strong> {{beer.grades}}
-          </div>
-        </ion-label>
-      </ion-item>
-      <ion-item-options>
-        <ion-item-option (click)="addUpdateBeer(beer)">
-          <ion-icon class="option-btn" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option
-          (click)="confirmDeleteBeer(beer)"
-          color="danger"
-        >
-          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-
-  <ion-list *ngIf="loading">
-    <ion-item *ngFor="let i of [1,1,1,1,1,1,1,1]" class="beer-item">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated style="width: 100%; height: 100%"
-        ></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <div>
-          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-        </div>
-        <div>
-          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-        </div>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-  <div *ngIf="!loading && beers.length == 0 " class="empty">
-    <ion-icon name="body-outline"></ion-icon>
-    <h3>Aún no has agregado ninguna cerveza</h3>
+<ion-content class="custom-background">
+  <div class="stats-container" *ngIf="!loading && beers.length">
+    <ion-card class="stats-card">
+      <ion-card-content>
+        <p>Total de cervezas: <strong>{{ beers.length }}</strong></p>
+      </ion-card-content>
+    </ion-card>
   </div>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addUpdateBeer()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div class="beer-list">
+    <ion-card *ngFor="let beer of beers" class="beer-card">
+      <ion-card-header>
+        <ion-avatar class="beer-image">
+          <img [src]="beer.image || 'assets/default-beer.png'" />
+        </ion-avatar>
+      </ion-card-header>
+      <ion-card-content>
+        <h2 id="contenido">{{ beer.name }}</h2>
+        <p> Volumen: {{ beer.volume }} cl</p>
+        <p> Alcohol: {{ beer.grades }}%</p>
+        <div class="button-group">
+          <ion-button color="danger" (click)="confirmDeleteBeer(beer)">Eliminar</ion-button>
+          <ion-button color="primary" (click)="addUpdateBeer(beer)">Actualizar</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!loading && beers.length == 0 " class="empty-state">
+    <ion-icon name="beer-outline" size="large"></ion-icon>
+    <h3>No hay cervezas registradas</h3>
+    <p>¡Agrega una nueva cerveza para comenzar!</p>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="searchBeer()">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="addUpdateBeer()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToHome()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goToProfile()">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

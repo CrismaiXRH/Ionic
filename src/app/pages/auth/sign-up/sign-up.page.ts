@@ -109,7 +109,7 @@ export class SignUpPage implements OnInit {
         .then((res) => {
           this.utilsService.saveInLocalStorage('user', this.form.value);
           this.form.reset();
-          this.utilsService.routerLink('/home');
+          this.utilsService.routerLink('/main/home');
         })
         .catch((error) => {
           this.utilsService.presentToast({

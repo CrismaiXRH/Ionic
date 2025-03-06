@@ -1,11 +1,77 @@
-.image-icon {
-    font-size: 100px;
-    opacity: 30%;
-}
-
-ion-avatar {
+:root {
+    --primary-color: #ffcc00;
+    --secondary-color: #ff9900;
+    --background-color: #121212;
+    --text-color: #fff;
+  }
+  
+  .custom-background {
+    background: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  #contenido {
+    padding-top: 10%;
+  }
+  
+  /* Estilos del avatar */
+  ion-avatar {
     width: 200px;
     height: 160px;
     --border-radius: 15px;
     margin: 0 auto;
-}
+  }
+  
+  /* Icono dentro del avatar cuando no hay imagen */
+  .image-icon {
+    font-size: 100px;
+    opacity: 30%;
+  }
+  
+  /* Botón de cambio de foto */
+  .photo-btn {
+    position: relative;
+    bottom: 25px;
+  }
+  
+  /* Espaciado entre elementos */
+  ion-item {
+    padding-top: 15px;
+  }
+  
+  /* Contenedor de los botones */
+  .button-group {
+    display: flex;
+    justify-content: flex-end; /* Mueve los botones a la derecha */
+    gap: 12px;
+    margin-top: 12px;
+    width: 100%;
+    padding-right: 16px; /* Espaciado para evitar que los botones se peguen al borde */
+  }
+  
+  .button-group ion-button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    height: 35px;
+    background: var(--primary-color); /* Color primario en los botones */
+    color: var(--text-color); /* Texto en blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .button-group ion-button:hover {
+    background: var(--secondary-color); /* Cambio de color al pasar el mouse */
+  }
+  
+  /* Footer */
+  ion-footer ion-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+  
